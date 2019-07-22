@@ -8,7 +8,7 @@ module.exports = {
       host: "127.0.0.1",
       user: "quinnlashinsky",
       password: "",
-      database: "testdb"
+      database: "monitor_db"
     },
     migrations: {
       directory: __dirname + "/knex/migrations"
