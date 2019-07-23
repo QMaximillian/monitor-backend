@@ -1,14 +1,24 @@
 exports.up = function(knex) {
   knex.schema.hasTable('users').then(function(exists) {
-      return knex.schema.createTable("users", t => {
-      t.uuid("id").primary();
-      t.string("name");
-      t.string("age");
-    })
-    .then(res => console.log(res));
+    if (!exists) {
+      return knex.schema
+        .createTable("users", t => {
+          t.uuid("id").primary();
+          t.string("first_name");
+          t.string("last_name");
+          t.string("password");
+          t.string("email");
+          t.string("phone_number");
+          t.boolean("equity");
+          t.string("age");
+          t.integer("feet");
+          t.integer("inches");
+          t.string('birthday')
+        })
+        .then(res => console.log(res));
+    } 
   }) 
 }
-    
 
 exports.down = function(knex) {
   return knex.schema.dropTableIfExists("users");

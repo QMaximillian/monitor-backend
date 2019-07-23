@@ -3,9 +3,6 @@ import cors from 'cors'
 import { ApolloServer, gql } from 'apollo-server-express'
 import RootQuery from '../graphql/RootQuery'
 import express from "express";
-console.log("Running")
-
-console.log(process.env.MY_SECRET)
 
 const app = express();
 app.use(cors())
@@ -41,7 +38,7 @@ const schema = gql`
     end_time: String!
     interval: Int!
     street_num: Int!
-    street_address: Int!
+    street_address: String!
     city: String!
     state: String!
     zip_code: String!
