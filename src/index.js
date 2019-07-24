@@ -105,7 +105,7 @@ const resolvers = {
       login: async (parent, {email, password}, context) => {
 
         try {
-            let user = await knex('users').where('email', email)
+          let user = await knex('users').where('email', email)
 
           user = user[0]
 
@@ -136,27 +136,30 @@ const resolvers = {
     User: {
     }
 }
-async function tokenForUser(token){
+const addUser = async (req, res, next) => {
+  
   try {
-    jwt.verify(token, 'frindle')
+    const token = await req.headers["authorization"];
+    const user = await jwt.verify(token, 'frindle')
+    knex.
+    req.user = user
+    next();
   } catch(error) {
-    throw new Error('Invalid')
+    return Promise.reject(new Error(400))
   }
 }
+
+app.use(addUser)
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
-  // context: async ({ req }) => {
-  //   let authToken = null;
-  //   let currentUser = null;
-
-
-  //     authToken = req.headers.authorization
-  //     if (authToken) {
-  //       currentUser = await tokenForUser
-  //     }
-
-  // }
+  context:  (req) => {
+    // console.log(req.user)
+    return {
+    user: req.user
+  }
+}
+    
 });  
 
 server.applyMiddleware({ app, path: '/graphql' });
