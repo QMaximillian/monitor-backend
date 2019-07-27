@@ -6,6 +6,7 @@ import express from "express";
 import bcrypt from 'bcrypt'
 import knex from "../knex/knex";
 import jwt from "jsonwebtoken";
+import {getViewer} from './lib'
 
 const app = express();
 app.use(cors())
@@ -119,7 +120,7 @@ const resolvers = {
             throw new Error('Invalid password')
           }
 
-          const token = jwt.sign({userId: user.id}, 'frindle')
+          const token = jwt.sign({id: user.id}, 'frindle')
           console.log(token)
           user.token = token 
           return user
@@ -136,28 +137,40 @@ const resolvers = {
     User: {
     }
 }
-const addUser = async (req, res, next) => {
+// const addUser = async (req, res, next) => {
   
-  try {
-    const token = await req.headers["authorization"];
-    const user = await jwt.verify(token, 'frindle')
-    knex.
-    req.user = user
-    next();
-  } catch(error) {
-    return Promise.reject(new Error(400))
-  }
-}
+//   try {
+//     const token = await req.headers["authorization"];
+//     const user = await jwt.verify(token, 'frindle')
+//     knex.
+//     req.user = user
+//     next();
+//   } catch(error) {
+//     return Promise.reject(new Error(400))
+//   }
+// }
 
-app.use(addUser)
+// app.use(addUser)
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
-  context:  (req) => {
-    // console.log(req.user)
+  context:  async ({ req }) => {
+    let authToken = null;
+    let viewer = null;
+
+
+     authToken = req.headers['AUTHORIZATION']
+
+     if (authToken) {
+       viewer = await getViewer(authToken)
+     }
+
+     console.log(viewer)
+
     return {
-    user: req.user
-  }
+      authToken,
+      viewer
+    } 
 }
     
 });  
