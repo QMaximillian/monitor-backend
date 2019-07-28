@@ -9,6 +9,7 @@ exports.up = function(knex) {
           t.string("password");
           t.string("email");
           t.string("phone_number");
+          t.string("gender");
           t.boolean("equity");
           t.string("age");
           t.integer("feet");

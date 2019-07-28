@@ -5,6 +5,8 @@ exports.up = function(knex) {
         .createTable("appointments", t => {
           t.uuid("id").primary();
           t.string("time")
+          t.uuid('audition_id')
+          t.uuid('user_id')
         })
         .then(res => console.log(res));
     }

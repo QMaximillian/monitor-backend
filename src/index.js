@@ -6,7 +6,8 @@ import express from "express";
 import bcrypt from 'bcrypt'
 import knex from "../knex/knex";
 import jwt from "jsonwebtoken";
-import {getViewer} from './lib'
+import { getViewer , authenticated } from './lib'
+
 
 const app = express();
 app.use(cors())
@@ -16,6 +17,7 @@ const schema = gql`
     users: [User!]
     user(id: ID!): User
     me: User
+    findAudition(authToken: String!): Audition
   }
   
   type Mutation {
@@ -121,7 +123,7 @@ const resolvers = {
           }
 
           const token = jwt.sign({id: user.id}, 'frindle')
-          console.log(token)
+
           user.token = token 
           return user
         } catch(error) {
@@ -130,9 +132,9 @@ const resolvers = {
       }
     },
     Query: {
-      users: async (parent, { token }) => {
-        
-      }
+      findAudition: authenticated(async (parent, args, { viewer }) => {
+
+      })
     },
     User: {
     }
@@ -160,12 +162,11 @@ const server = new ApolloServer({
 
 
      authToken = req.headers['AUTHORIZATION']
-
+    console.log(authToken)
      if (authToken) {
        viewer = await getViewer(authToken)
+       console.log(viewer)
      }
-
-     console.log(viewer)
 
     return {
       authToken,
