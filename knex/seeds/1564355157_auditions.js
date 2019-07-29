@@ -15,7 +15,8 @@ exports.seed = function(knex) {
           street_address: "1st Avenue",
           city: "New York ",
           state: "NY",
-          zip_code: "10003"
+          zip_code: "10003",
+          monitor_id: "51215840-b68f-4a4f-95f4-42aa5fde630f"
         },
         {
           id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
@@ -27,7 +28,8 @@ exports.seed = function(knex) {
           street_address: "1st Avenue",
           city: "New York ",
           state: "NY",
-          zip_code: "10003"
+          zip_code: "10003",
+          monitor_id: "51215840-b68f-4a4f-95f4-42aa5fde630f"
         }
       ]);
     });

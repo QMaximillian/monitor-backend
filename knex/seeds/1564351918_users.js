@@ -35,9 +35,12 @@ exports.seed = function(knex) {
 {id: '68b42c26-ffd0-4f6a-96c1-5a7bc5a5e599', first_name: 'Marlowe', last_name: 'Cashell', email: 'mcashellq@npr.org', gender: 'Male', phone_number: '5001509597', equity: false, age: 46, feet: 5, inches: 5, birthday: "2002-08-22"},
 {id: '75235e84-2312-40d9-95f3-60d3fb8f352b', first_name: 'Margarette', last_name: 'Hagland', email: 'mhaglandr@blogger.com', gender: 'Female', phone_number: '9219927211', equity: true, age: 59, feet: 4, inches: 8, birthday: "1972-08-08"},
 {id: '21aa361f-af3b-4a1e-8f02-81ad1f89d073', first_name: 'Bebe', last_name: 'Antwis', email: 'bantwiss@illinois.edu', gender: 'Female', phone_number: '6817033372', equity: false, age: 42, feet: 6, inches: 3, birthday: "1996-12-22"},
-{id: '5eb78847-364d-4af3-8f18-fba63b9bdddf', first_name: 'Stanislaus', last_name: 'Bacchus', email: 'sbacchust@cargocollective.com', gender: 'Male', phone_number: '2963846050', equity: true, age: 19, feet: 6, inches: 1, birthday: "1987-08-12"}
+{id: '5eb78847-364d-4af3-8f18-fba63b9bdddf', first_name: 'Stanislaus', last_name: 'Bacchus', email: 'sbacchust@cargocollective.com', gender: 'Male', phone_number: '2963846050', equity: true, age: 19, feet: 6, inches: 1, birthday: "1987-08-12"},
+{id: '51215840-b68f-4a4f-95f4-42aa5fde630f', first_name: 'Quinn', last_name: 'Lashinsky', email: 'quinnlashinsky@gmail.com', gender: 'Male', phone_number: '9736347866', equity: null, age: 26, feet: 6, inches: 0, birthday: "1992-12-04"}
 
 
       ]);
     });
 };
+
+

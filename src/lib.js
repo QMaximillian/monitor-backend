@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import knex from "../knex/knex";
 import jwt from "jsonwebtoken";
 

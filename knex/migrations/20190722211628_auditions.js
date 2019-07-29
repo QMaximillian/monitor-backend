@@ -13,6 +13,7 @@ exports.up = function(knex) {
           t.string("city");
           t.string("state");
           t.string("zip_code");
+          t.uuid('monitor_id');
         })
         .then(res => console.log(res));
     }
