@@ -22,7 +22,6 @@ export const getViewer = async (authToken) => {
 
 
 export const authenticated = next => (root, args, context, info) => {
-  console.log(context)
   if (!context.viewer) {
     throw new Error(`Unauthenticated!`);
   }

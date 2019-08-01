@@ -5,6 +5,7 @@ exports.up = function(knex) {
         .createTable("auditions", t => {
           t.uuid("id").primary();
           t.string("date");
+          t.string('show_name')
           t.string("begin_time");
           t.string("end_time");
           t.integer("interval");

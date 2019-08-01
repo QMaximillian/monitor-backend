@@ -10,14 +10,14 @@ import { getViewer , authenticated } from './lib'
 
 
 const app = express();
-app.use(cors())
+app.use(cors('*'))
 
 const schema = gql`
   type Query {
     users: [User!]
     user(id: ID!): User
     me: User
-    findAudition(authToken: String!): Audition
+    getAuditions(id: ID!): [Audition]!
   }
   
   type Mutation {
@@ -52,6 +52,7 @@ const schema = gql`
     city: String!
     state: String!
     zip_code: String!
+    show_name: String!
   }
 
   type Appointment {
@@ -100,59 +101,63 @@ const schema = gql`
     inches: Int!
     birthday: String!
     token: String!
+    monitor_auditions: [Audition]!
   }
 `;
 
 const resolvers = {
-    Mutation: {
-      login: async (parent, {email, password}, context) => {
+  Mutation: {
+    login: async (parent, { email, password }, context) => {
+      try {
+        let user = await knex("users").where("email", email);
 
-        try {
-          let user = await knex('users').where('email', email)
+        user = user[0];
 
-          user = user[0]
-
-          if (!user) {
-            throw new Error('No user found')
-          }
-
-          const valid = await bcrypt.compare(password, user.password)
-
-          if (!valid) {
-            throw new Error('Invalid password')
-          }
-
-          const token = jwt.sign({id: user.id}, 'frindle')
-
-          user.token = token 
-          return user
-        } catch(error) {
-          throw new Error('Error processing request')
+        if (!user) {
+          throw new Error("No user found");
         }
+
+        const valid = await bcrypt.compare(password, user.password);
+
+        if (!valid) {
+          throw new Error("Invalid password");
+        }
+
+        const token = jwt.sign({ id: user.id }, "frindle");
+
+        user.token = token;
+
+        return user;
+      } catch (error) {
+        throw new Error("Error processing request");
       }
-    },
-    Query: {
-      findAudition: authenticated(async (parent, args, { viewer }) => {
-
-      })
-    },
-    User: {
     }
-}
-// const addUser = async (req, res, next) => {
-  
-//   try {
-//     const token = await req.headers["authorization"];
-//     const user = await jwt.verify(token, 'frindle')
-//     knex.
-//     req.user = user
-//     next();
-//   } catch(error) {
-//     return Promise.reject(new Error(400))
-//   }
-// }
+  },
+  Query: {
+    user: authenticated(async (parent, { id }, context) => {
+      // if (!context.viewer) {
+      //   return "Unauthenticated!";
+      // }
 
-// app.use(addUser)
+      const user = await knex('users').where("users.id", id).then(row => row[0])
+      // console.log(user)
+      return user
+    })
+  },
+  User: {
+    monitor_auditions: authenticated(async (user, args, context) => {
+
+      const monitor_auditions = await knex("auditions").where(
+        "auditions.monitor_id",
+        user.id
+      );
+
+      return monitor_auditions;
+    })
+  }
+};
+
+
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
@@ -161,11 +166,11 @@ const server = new ApolloServer({
     let viewer = null;
 
 
-     authToken = req.headers['AUTHORIZATION']
-    console.log(authToken)
+     authToken = req.headers.authorization
+     console.log(req.headers.authorization);
+
      if (authToken) {
        viewer = await getViewer(authToken)
-       console.log(viewer)
      }
 
     return {
