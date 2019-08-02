@@ -8,7 +8,6 @@ exports.up = function(knex) {
           t.uuid('audition_id')
           t.uuid('user_id')
         })
-        .then(res => console.log(res));
     }
   });
 };

@@ -7,7 +7,6 @@ exports.up = function(knex) {
           t.string("name");
           t.string("description");
         })
-        .then(res => console.log(res));
     }
   });
 };

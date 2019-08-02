@@ -7,7 +7,6 @@ knex.schema.hasTable("faq").then(function(exists) {
           t.string("question");
           t.string("answer");
         })
-        .then(res => console.log(res));
     }
   });
 };

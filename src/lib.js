@@ -10,7 +10,7 @@ export const getViewer = async (authToken) => {
 
     return viewer
   } catch(error) {
-    console.log(error)
+    throw new Error(error)
   }
     
     

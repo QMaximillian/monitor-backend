@@ -11,7 +11,6 @@ exports.up = function(knex) {
           t.string("state");
           t.string("zip_code");
         })
-        .then(res => console.log(res));
     }
   });
 };

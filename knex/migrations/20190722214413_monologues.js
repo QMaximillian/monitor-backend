@@ -6,7 +6,6 @@ exports.up = function(knex) {
           t.uuid("id").primary();
           t.string("play");
         })
-        .then(res => console.log(res));
     }
   });
 };

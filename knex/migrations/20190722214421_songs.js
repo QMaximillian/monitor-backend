@@ -4,10 +4,9 @@ exports.up = function(knex) {
       return knex.schema
         .createTable("songs", t => {
           t.uuid("id").primary();
-        t.string("name");
+          t.string("name");
     
         })
-        .then(res => console.log(res));
     }
   });
 };

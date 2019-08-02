@@ -8,7 +8,6 @@ exports.up = function(knex) {
           t.integer("year");
           t.integer("season_number");
         })
-        .then(res => console.log(res));
     }
   });
 };

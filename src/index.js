@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import { getViewer , authenticated } from './lib'
 
 
+
 const app = express();
 app.use(cors('*'))
 
@@ -134,26 +135,33 @@ const resolvers = {
     }
   },
   Query: {
-    user: authenticated(async (parent, { id }, context) => {
-      // if (!context.viewer) {
-      //   return "Unauthenticated!";
-      // }
+    user: async (parent, { id }, context) => {
+      try {
+        const user = await knex("users")
+          .where("users.id", id)
+          .then(row => row[0]);
 
-      const user = await knex('users').where("users.id", id).then(row => row[0])
-      // console.log(user)
-      return user
-    })
+        return user;
+
+      } catch(error) {
+        throw new Error(error)
+      }
+    }
   },
   User: {
-    monitor_auditions: authenticated(async (user, args, context) => {
+    monitor_auditions: async (user, args, context) => {
+      try {
+        const monitor_auditions = await knex("auditions").where(
+          "auditions.monitor_id",
+          user.id
+        );
 
-      const monitor_auditions = await knex("auditions").where(
-        "auditions.monitor_id",
-        user.id
-      );
+        return monitor_auditions;
 
-      return monitor_auditions;
-    })
+      } catch(error) {
+        throw new Error(error)
+      }
+    }
   }
 };
 
@@ -162,26 +170,28 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   context:  async ({ req }) => {
-    let authToken = null;
-    let viewer = null;
+    try {
+      let authToken = null;
+      let viewer = null;
 
+      authToken = req.headers.authorization;
 
-     authToken = req.headers.authorization
-     console.log(req.headers.authorization);
+      if (authToken) {
+        viewer = await getViewer(authToken);
+      }
 
-     if (authToken) {
-       viewer = await getViewer(authToken)
-     }
-
-    return {
-      authToken,
-      viewer
-    } 
+      return {
+        authToken,
+        viewer
+      }; 
+    } catch {
+      throw new Error(error)
+    }
 }
     
 });  
 
-server.applyMiddleware({ app, path: '/graphql' });
+server.applyMiddleware({ app });
 
 app.listen({ port: 8000 }, () => {
   console.log('Apollo Server on http://localhost:8000/graphql');

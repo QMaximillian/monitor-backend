@@ -16,7 +16,6 @@ exports.up = function(knex) {
           t.integer("inches");
           t.string('birthday')
         })
-        .then(res => console.log(res));
     } 
   }) 
 }
