@@ -95,7 +95,8 @@ const schema = gql`
     last_name: String!
     password: String!
     email: String!
-    phone: String!
+    phone_number: String!
+    age: Int!
     equity: Boolean!
     gender: String
     feet: Int!
@@ -136,16 +137,16 @@ const resolvers = {
   },
   Query: {
     user: async (parent, { id }, context) => {
-      try {
+      // try {
         const user = await knex("users")
           .where("users.id", id)
           .then(row => row[0]);
-
+        console.log(user)
         return user;
 
-      } catch(error) {
-        throw new Error(error)
-      }
+      // } catch(error) {
+      //   throw new Error(error)
+      // }
     }
   },
   User: {

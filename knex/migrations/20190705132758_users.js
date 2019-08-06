@@ -11,7 +11,7 @@ exports.up = function(knex) {
           t.string("phone_number");
           t.string("gender");
           t.boolean("equity");
-          t.string("age");
+          t.integer("age");
           t.integer("feet");
           t.integer("inches");
           t.string('birthday')
