@@ -131,7 +131,7 @@ const resolvers = {
 
         return user;
       } catch (error) {
-        throw new Error("Error processing request");
+        throw new Error(error);
       }
     }
   },
@@ -171,12 +171,11 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   context:  async ({ req }) => {
-    try {
       let authToken = null;
       let viewer = null;
-
+      // console.log(req.headers)
       authToken = req.headers.authorization;
-
+      console.log(authToken)
       if (authToken) {
         viewer = await getViewer(authToken);
       }
@@ -185,9 +184,6 @@ const server = new ApolloServer({
         authToken,
         viewer
       }; 
-    } catch {
-      throw new Error(error)
-    }
 }
     
 });  
