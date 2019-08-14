@@ -15,6 +15,7 @@ app.use(cors('*'))
 
 const schema = gql`
   type Query {
+    viewer: User
     users: [User!]
     user(id: ID!): User
     me: User
@@ -136,12 +137,14 @@ const resolvers = {
     }
   },
   Query: {
-    user: async (parent, { id }, context) => {
+    viewer: async (parent, args, context) => {
+      if (!context.viewer) return
+
       try {
         const user = await knex("users")
-          .where("users.id", id)
+          .where("users.id", context.viewer.id)
           .then(row => row[0]);
-        
+
           return user;
 
       } catch(error) {
@@ -151,19 +154,20 @@ const resolvers = {
   },
   User: {
     monitor_auditions: async (user, args, context) => {
-      console.log('hello')
+      if (!context.viewer) return
       try {
         const monitor_auditions = await knex("auditions").where(
           "auditions.monitor_id",
-          user.id
+          context.viewer.id
         );
-console.log(monitor_auditions)
+
         return monitor_auditions;
 
       } catch(error) {
         throw new Error(error)
       }
     },
+
   }
 };
 
@@ -176,13 +180,12 @@ const server = new ApolloServer({
       let viewer = null;
       // console.log(req.headers)
       authToken = req.headers.authorization;
-      console.log(authToken)
+
       if (authToken) {
         viewer = await getViewer(authToken);
       }
 
       return {
-        authToken,
         viewer
       }; 
 }

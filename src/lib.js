@@ -6,7 +6,7 @@ export const getViewer = async (authToken) => {
   try {
     const payload = jwt.verify(authToken, 'frindle')
 
-    let viewer = await knex.select('id').from('users').where('id', payload.id)
+    let viewer = await knex.select('id').from('users').where('id', payload.id).then(row => row[0])
 
     return viewer
   } catch(error) {
