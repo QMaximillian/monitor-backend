@@ -15,13 +15,10 @@ app.use(cors('*'))
 
 const schema = gql`
   type Query {
-    viewer: User
-    users: [User!]
-    user(id: ID!): User
-    me: User
-    getAuditions(id: ID!): [Audition]!
+    viewer: User!
+    audition(audition_id: String!): Audition!
   }
-  
+
   type Mutation {
     login(email: String, password: String!): User
   }
@@ -55,13 +52,13 @@ const schema = gql`
     state: String!
     zip_code: String!
     show_name: String!
+    appointments: [Appointment!]!
   }
 
   type Appointment {
-    user: User
+    id: String!
     time: String!
-    audition: Audition!
-    token: Token!
+    user: User
   }
 
   type Monologue {
@@ -138,23 +135,35 @@ const resolvers = {
   },
   Query: {
     viewer: async (parent, args, context) => {
-      if (!context.viewer) return
+      if (!context.viewer) return;
 
       try {
         const user = await knex("users")
           .where("users.id", context.viewer.id)
           .then(row => row[0]);
 
-          return user;
+        return user;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    audition: async (parent, args, context) => {
+      if (!context.viewer) return;
 
+      try {
+        const audition = await knex('auditions')
+        .where("auditions.id", args.audition_id)
+        .then(row => row[0])
+
+        return audition
       } catch(error) {
-        throw new Error(error)
+        throw new Error
       }
     }
   },
   User: {
     monitor_auditions: async (user, args, context) => {
-      if (!context.viewer) return
+      if (!context.viewer) return;
       try {
         const monitor_auditions = await knex("auditions").where(
           "auditions.monitor_id",
@@ -162,12 +171,44 @@ const resolvers = {
         );
 
         return monitor_auditions;
-
-      } catch(error) {
-        throw new Error(error)
+      } catch (error) {
+        throw new Error(error);
       }
-    },
-
+    }
+  },
+  Audition: {
+    appointments: async (audition, args, context) => {
+      if (!context.viewer) return;
+      try {
+        const appointments = await knex
+          .select("appointments.id", "appointments.time", "users.*")
+          .from("appointments")
+          .leftJoin("users", "users.id", "appointments.user_id")
+          .andWhere("appointments.audition_id", "=", audition.id)
+          .orderBy("appointments.time");
+        let structuredAppointments = []
+        appointments.forEach(appointment => {
+          structuredAppointments.push(
+            {
+              id: appointment.id,
+              time: appointment.time,
+              user: {
+                first_name: appointment.first_name,
+                last_name: appointment.last_name,
+                phone_number: appointment.phone_number,
+                age: appointment.age,
+                equity: appointment.equity,
+                gender: appointment.gender,
+                email: appointment.email
+              }
+            }
+          )
+        })
+        return structuredAppointments;
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
   }
 };
 

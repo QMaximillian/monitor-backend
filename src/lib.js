@@ -12,12 +12,6 @@ export const getViewer = async (authToken) => {
   } catch(error) {
     throw new Error(error)
   }
-    
-    
-    // Decode authToken using secret
-    // query database for user with that id
-    // if authToken === id: query the database and return the user
-    // if authToken !== id return null
 }
 
 

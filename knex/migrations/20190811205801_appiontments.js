@@ -1,7 +1,7 @@
 exports.up = function(knex) {
-  knex.schema.hasTable("user_auditions").then(function(exists) {
+  knex.schema.hasTable("appointments").then(function(exists) {
     if (!exists) {
-      return knex.schema.createTable("user_auditions", t => {
+      return knex.schema.createTable("appointments", t => {
         t.uuid("id").primary();
         t.string("time");
         t.uuid("audition_id");
@@ -12,5 +12,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("user_auditions");
+  return knex.schema.dropTableIfExists("appointments");
 };

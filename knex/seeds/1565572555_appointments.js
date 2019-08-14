@@ -1,10 +1,10 @@
 
 // exports.seed = function(knex) {
 //   // Deletes ALL existing entries
-//   return knex('user_auditions').del()
+//   return knex('appointments').del()
 //     .then(function () {
 //       // Inserts seed entries
-//       return knex("user_auditions").insert([
+//       return knex("appointments").insert([
 //         {
 //           id: "c74f09dd-346f-41eb-a695-8a1c6aaf9ec7",
 //           time: "2019-07-28T08:00:00+0000",
@@ -133,31 +133,31 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('user_auditions').del()
+  return knex('appointments').del()
     .then(function () {
       // Inserts seed entries
-      return knex("user_auditions").insert([
+      return knex("appointments").insert([
         {
           id: "dd10008a-40c0-4be7-b71b-b507180d60bf",
-          time: "2019-07-29T8:00:00Z",
+          time: "2019-07-29T08:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "0e2097e8-663d-4db1-9e93-bc12f33dbcd6"
         },
         {
           id: "08ac0418-3844-458e-b7e3-03af2f7b9030",
-          time: "2019-07-29T8:30:00Z",
+          time: "2019-07-29T08:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "0e64ecfb-3fc2-4afd-8ac9-caea94f06625"
         },
         {
           id: "3a70e980-a68d-4c67-bfb4-ce0f1e63580a",
-          time: "2019-07-29T9:00:00Z",
+          time: "2019-07-29T09:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "1ec32c99-37c5-4b1f-8fde-b6b7cb6ca2cf"
         },
         {
           id: "e7e2eba7-9b00-4ea3-8ca4-8d5cf1c26ed5",
-          time: "2019-07-29T9:30:00Z",
+          time: "2019-07-29T09:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "21aa361f-af3b-4a1e-8f02-81ad1f89d073"
         },
