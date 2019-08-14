@@ -26,6 +26,8 @@ exports.seed = function(knex) {
 {id: 'e8fa4f62-95b6-4b4c-b5f2-276f94c03ced', first_name: 'Dionis', last_name: 'Landreth', email: 'dlandrethh@ifeng.com', gender: 'Female', phone_number: '9133516136', equity: true, age: 35, feet: 5, inches: 4, birthday: "2003-05-22"},
 {id: '0e64ecfb-3fc2-4afd-8ac9-caea94f06625', first_name: 'Killy', last_name: 'McGarvey', email: 'kmcgarveyi@ca.gov', gender: 'Male', phone_number: '9738874666', equity: false, age: 48, feet: 4, inches: 0, birthday: "1972-12-23"},
 {id: '4467d4fd-ae92-427c-a8e9-9cf1f859678f', first_name: 'Binny', last_name: 'Fitzer', email: 'bfitzerj@bbc.co.uk', gender: 'Female', phone_number: '8093280260', equity: false, age: 58, feet: 5, inches: 2, birthday: "1987-05-04"},
+
+
 {id: 'c42d1be5-7978-4553-ae03-03af2d7648c4', first_name: 'Duffie', last_name: 'Geratt', email: 'dgerattk@weebly.com', gender: 'Male', phone_number: '9499304768', equity: true, age: 20, feet: 5, inches: 5, birthday: "1977-08-30"},
 {id: 'd09f0830-1b19-4e47-91ac-73e377df89d2', first_name: 'Brana', last_name: 'Tattersfield', email: 'btattersfieldl@chronoengine.com', gender: 'Female', phone_number: '9908028006', equity: true, age: 47, feet: 4, inches: 11, birthday: "1988-11-21"},
 {id: '4d56907c-9cff-4056-8636-d40dff382f4b', first_name: 'Jsandye', last_name: 'Barff', email: 'jbarffm@github.com', gender: 'Female', phone_number: '3816062328', equity: false, age: 33, feet: 5, inches: 4, birthday: "2001-10-20"},

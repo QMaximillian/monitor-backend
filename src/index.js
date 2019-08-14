@@ -137,32 +137,33 @@ const resolvers = {
   },
   Query: {
     user: async (parent, { id }, context) => {
-      // try {
+      try {
         const user = await knex("users")
           .where("users.id", id)
           .then(row => row[0]);
-        console.log(user)
-        return user;
-
-      // } catch(error) {
-      //   throw new Error(error)
-      // }
-    }
-  },
-  User: {
-    monitor_auditions: async (user, args, context) => {
-      try {
-        const monitor_auditions = await knex("auditions").where(
-          "auditions.monitor_id",
-          user.id
-        );
-
-        return monitor_auditions;
+        
+          return user;
 
       } catch(error) {
         throw new Error(error)
       }
     }
+  },
+  User: {
+    monitor_auditions: async (user, args, context) => {
+      console.log('hello')
+      try {
+        const monitor_auditions = await knex("auditions").where(
+          "auditions.monitor_id",
+          user.id
+        );
+console.log(monitor_auditions)
+        return monitor_auditions;
+
+      } catch(error) {
+        throw new Error(error)
+      }
+    },
   }
 };
 
