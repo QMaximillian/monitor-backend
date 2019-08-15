@@ -1,0 +1,8 @@
+import gql from 'graphql-tag'
+
+export const typeDef = gql`
+    type Query {
+    viewer: Viewer!
+    audition(audition_id: String!): Audition!
+  }
+`

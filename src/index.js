@@ -1,221 +1,50 @@
 import 'dotenv/config';
 import cors from 'cors'
 import { ApolloServer, gql } from 'apollo-server-express'
-import RootQuery from '../graphql/RootQuery'
 import express from "express";
-import bcrypt from 'bcrypt'
-import knex from "../knex/knex";
-import jwt from "jsonwebtoken";
-import { getViewer , authenticated } from './lib'
+import { getViewer } from './lib'
+import merge from 'lodash.merge'
+import {typeDef as Viewer} from './types/viewer'
+import {typeDef as User} from './types/user'
+import {typeDef as Audition} from './types/audition'
+import {typeDef as Appointment} from './types/appointment'
+import {typeDef as Theater} from './types/theater'
+import {typeDef as Mutation} from './types/mutation'
+import {typeDef as Query} from './types/query'
+import {typeDef as Season} from './types/season'
+import {typeDef as Monologue} from './types/monologue'
+import {typeDef as Song} from './types/song'
+import {typeDef as FAQ} from './types/faq'
+import {typeDef as Info} from './types/info'
+import {typeDef as Amenities} from './types/amenities'
+import {typeDef as Token} from './types/token'
+/////
+import {resolvers as auditionResolvers} from './resolvers/Audition'
+import {resolvers as viewerResolvers} from './resolvers/Viewer'
+import {resolvers as queryResolvers} from './resolvers/Query'
+import {resolvers as mutationResolvers} from './resolvers/Mutation'
 
 
 
 const app = express();
 app.use(cors('*'))
 
-const schema = gql`
-  type Query {
-    viewer: User!
-    audition(audition_id: String!): Audition!
-  }
 
-  type Mutation {
-    login(email: String, password: String!): User
-  }
 
-  type Theater {
-    id: ID!
-    name: String!
-    street_num: Int!
-    street_address: String!
-    city: String!
-    state: String!
-    zip_code: String!
-  }
 
-  type Season {
-    id: ID!
-    name: String!
-    year: Int!
-    season_number: Int!
-  }
+const resolvers = merge(
+    resolvers,
+    auditionResolvers,
+    viewerResolvers,
+    queryResolvers,
+    mutationResolvers
+); 
 
-  type Audition {
-    id: ID!
-    date: String!
-    begin_time: String!
-    end_time: String!
-    interval: Int!
-    street_num: Int!
-    street_address: String!
-    city: String!
-    state: String!
-    zip_code: String!
-    show_name: String!
-    appointments: [Appointment!]!
-  }
-
-  type Appointment {
-    id: String!
-    time: String!
-    user: User
-  }
-
-  type Monologue {
-    play: String!
-  }
-
-  type Song {
-    name: String!
-  }
-
-  type FAQ {
-    question: String!
-    answer: String!
-  }
-
-  type Info {
-    info: String!
-  }
-
-  type Amenities {
-    name: String!
-    description: String!
-  }
-
-  type Token {
-    token: String!
-  }
-
-  type User {
-    id: ID!
-    first_name: String!
-    last_name: String!
-    password: String!
-    email: String!
-    phone_number: String!
-    age: Int!
-    equity: Boolean!
-    gender: String
-    feet: Int!
-    inches: Int!
-    birthday: String!
-    token: String!
-    monitor_auditions: [Audition]!
-  }
-`;
-
-const resolvers = {
-  Mutation: {
-    login: async (parent, { email, password }, context) => {
-      try {
-        let user = await knex("users").where("email", email);
-
-        user = user[0];
-
-        if (!user) {
-          throw new Error("No user found");
-        }
-
-        const valid = await bcrypt.compare(password, user.password);
-
-        if (!valid) {
-          throw new Error("Invalid password");
-        }
-
-        const token = jwt.sign({ id: user.id }, "frindle");
-
-        user.token = token;
-
-        return user;
-      } catch (error) {
-        throw new Error(error);
-      }
-    }
-  },
-  Query: {
-    viewer: async (parent, args, context) => {
-      if (!context.viewer) return
-      console.log(context.viewer)
-      try {
-        const user = await knex("users")
-          .where("users.id", context.viewer.id)
-          .then(row => row[0]);
-        console.log(user)
-        return user;
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-    audition: async (parent, args, context) => {
-      if (!context.viewer) return;
-
-      try {
-        const audition = await knex('auditions')
-        .where("auditions.id", args.audition_id)
-        .then(row => row[0])
-
-        return audition
-      } catch(error) {
-        throw new Error
-      }
-    }
-  },
-  User: {
-    monitor_auditions: async (user, args, context) => {
-      if (!context.viewer) return;
-
-      try {
-        const monitor_auditions = await knex("auditions").where(
-          "auditions.monitor_id",
-          context.viewer.id
-        );
-
-        return monitor_auditions;
-      } catch (error) {
-        throw new Error(error);
-      }
-    }
-  },
-  Audition: {
-    appointments: async (audition, args, context) => {
-      if (!context.viewer) return;
-      try {
-        const appointments = await knex
-          .select("appointments.id", "appointments.time", "users.*")
-          .from("appointments")
-          .leftJoin("users", "users.id", "appointments.user_id")
-          .andWhere("appointments.audition_id", "=", audition.id)
-          .orderBy("appointments.time");
-        let structuredAppointments = []
-        appointments.forEach(appointment => {
-          structuredAppointments.push(
-            {
-              id: appointment.id,
-              time: appointment.time,
-              user: {
-                first_name: appointment.first_name,
-                last_name: appointment.last_name,
-                phone_number: appointment.phone_number,
-                age: appointment.age,
-                equity: appointment.equity,
-                gender: appointment.gender,
-                email: appointment.email
-              }
-            }
-          )
-        })
-        return structuredAppointments;
-      } catch (error) {
-        throw new Error(error);
-      }
-    }
-  }
-};
+const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities, Token];
 
 
 const server = new ApolloServer({
-  typeDefs: schema,
+  typeDefs: typeDefs,
   resolvers,
   context:  async ({ req }) => {
       let authToken = null;
