@@ -135,13 +135,13 @@ const resolvers = {
   },
   Query: {
     viewer: async (parent, args, context) => {
-      if (!context.viewer) return;
-
+      if (!context.viewer) return
+      console.log(context.viewer)
       try {
         const user = await knex("users")
           .where("users.id", context.viewer.id)
           .then(row => row[0]);
-
+        console.log(user)
         return user;
       } catch (error) {
         throw new Error(error);
@@ -164,6 +164,7 @@ const resolvers = {
   User: {
     monitor_auditions: async (user, args, context) => {
       if (!context.viewer) return;
+
       try {
         const monitor_auditions = await knex("auditions").where(
           "auditions.monitor_id",
@@ -219,13 +220,13 @@ const server = new ApolloServer({
   context:  async ({ req }) => {
       let authToken = null;
       let viewer = null;
-      // console.log(req.headers)
-      authToken = req.headers.authorization;
 
+      authToken = req.headers.authorization;
+      
       if (authToken) {
         viewer = await getViewer(authToken);
       }
-
+      console.log(viewer)
       return {
         viewer
       }; 
