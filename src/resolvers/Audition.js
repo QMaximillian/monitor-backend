@@ -1,4 +1,4 @@
-
+import knex from '../../knex/knex'
 export const resolvers = {
     Audition: {
            appointments: async (audition, args, context) => {
@@ -11,8 +11,16 @@ export const resolvers = {
                    "users.*"
                  )
                  .from("appointments")
-                 .leftJoin("users", "users.id", "appointments.user_id")
-                 .andWhere("appointments.audition_id", "=", audition.id)
+                 .leftJoin(
+                   "users",
+                   "users.id",
+                   "appointments.user_id"
+                 )
+                 .andWhere(
+                   "appointments.audition_id",
+                   "=",
+                   audition.id
+                 )
                  .orderBy("appointments.time");
                let structuredAppointments = [];
                appointments.forEach(appointment => {
