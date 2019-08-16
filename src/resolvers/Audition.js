@@ -1,4 +1,3 @@
-import knex from "../../knex/knex";
 
 export const resolvers = {
     Audition: {

@@ -17,7 +17,7 @@ import {typeDef as Song} from './types/song'
 import {typeDef as FAQ} from './types/faq'
 import {typeDef as Info} from './types/info'
 import {typeDef as Amenities} from './types/amenities'
-import {typeDef as Token} from './types/token'
+
 /////
 import {resolvers as auditionResolvers} from './resolvers/Audition'
 import {resolvers as viewerResolvers} from './resolvers/Viewer'
@@ -40,7 +40,7 @@ const resolvers = merge(
     mutationResolvers
 ); 
 
-const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities, Token];
+const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities];
 
 
 const server = new ApolloServer({
@@ -49,13 +49,13 @@ const server = new ApolloServer({
   context:  async ({ req }) => {
       let authToken = null;
       let viewer = null;
-
+      console.log('authorization', req.headers.authorization)
       authToken = req.headers.authorization;
-      
+      console.log('authToken', authToken)
       if (authToken) {
         viewer = await getViewer(authToken);
       }
-      console.log(viewer)
+      console.log('viewer', viewer)
       return {
         viewer
       }; 

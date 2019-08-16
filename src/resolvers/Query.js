@@ -4,7 +4,6 @@ export const resolvers = {
     Query: {
     viewer: async (parent, args, context) => {
       if (!context.viewer) return
-      console.log(context.viewer)
       try {
         const user = await knex("users")
           .where("users.id", context.viewer.id)

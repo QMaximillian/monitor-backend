@@ -6,25 +6,25 @@ export const resolvers = {
     Mutation: {
     login: async (parent, { email, password }, context) => {
       try {
-        let user = await knex("users").where("email", email);
+        let viewer = await knex("users").where("email", email);
 
-        user = user[0];
+        viewer = viewer[0];
 
-        if (!user) {
-          throw new Error("No user found");
+        if (!viewer) {
+          throw new Error("No viewer found");
         }
 
-        const valid = await bcrypt.compare(password, user.password);
+        const valid = await bcrypt.compare(password, viewer.password);
 
         if (!valid) {
           throw new Error("Invalid password");
         }
 
-        const token = jwt.sign({ id: user.id }, "frindle");
+        const token = jwt.sign({ id: viewer.id }, "frindle");
 
-        user.token = token;
+        viewer.token = token;
 
-        return user;
+        return viewer;
       } catch (error) {
         throw new Error(error);
       }

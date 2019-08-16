@@ -14,6 +14,5 @@ export const typeDef = gql`
         feet: Int!
         inches: Int!
         birthday: String!
-        token: String!
     }
 `
