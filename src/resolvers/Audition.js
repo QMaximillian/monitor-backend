@@ -32,8 +32,9 @@ export const resolvers = {
                });
                return structuredAppointments;
              } catch (error) {
-               throw new Error(error);
+               console.log(error);
              }
-         }
-        }
-       }
+         },
+      }
+    }
+    

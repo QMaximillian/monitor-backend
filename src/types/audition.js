@@ -14,5 +14,6 @@ export const typeDef = gql`
         zip_code: String!
         show_name: String!
         appointments: [Appointment!]!
+        instructions: [Instruction]
     }
   `

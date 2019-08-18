@@ -17,6 +17,7 @@ import {typeDef as Song} from './types/song'
 import {typeDef as FAQ} from './types/faq'
 import {typeDef as Info} from './types/info'
 import {typeDef as Amenities} from './types/amenities'
+import {typeDef as Instruction} from './types/instructions'
 
 /////
 import {resolvers as auditionResolvers} from './resolvers/Audition'
@@ -40,7 +41,7 @@ const resolvers = merge(
     mutationResolvers
 ); 
 
-const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities];
+const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities, Instruction];
 
 
 const server = new ApolloServer({
