@@ -26,12 +26,12 @@ export const resolvers = {
                 .orderBy('auditions.date').limit(1).then(row => row[0])
 
 
-             const instructions = await knex('instructions.*')
+             const instructions = await knex.select('instructions.*')
                .distinct()
                .from(knex.raw(`instructions, auditions`))
                .where('auditions.monitor_id', user.id)
                .andWhere('instructions.audition_id', upcoming_audition.id)
-
+            console.log(instructions)
              return { ...upcoming_audition, instructions: instructions };
            }
          }

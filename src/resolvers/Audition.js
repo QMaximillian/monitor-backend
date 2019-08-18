@@ -1,3 +1,4 @@
+import knex from "../../knex/knex";
 
 export const resolvers = {
     Audition: {
@@ -30,6 +31,7 @@ export const resolvers = {
                    }
                  });
                });
+
                return structuredAppointments;
              } catch (error) {
                console.log(error);

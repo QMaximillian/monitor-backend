@@ -8,7 +8,7 @@ export const resolvers = {
         const user = await knex("users")
           .where("users.id", context.viewer.id)
           .then(row => row[0]);
-        console.log(user)
+        // console.log(user)
         return user;
       } catch (error) {
         throw new Error(error);
