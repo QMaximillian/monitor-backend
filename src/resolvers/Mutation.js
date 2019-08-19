@@ -29,24 +29,34 @@ export const resolvers = {
         throw new Error(error);
       }
     },
-    // updateTodo: async (parent, {id}, context) => {
+    // saveTodo: async (parent, {id}, context) => {
     //   if (!context.viewer) return
       
     //   try {
-    //     // Take todo id
-    //     // knex query to save new text and completed properties
+    //        Generate a new id
+    //        knex query to save new todo to database with the audition_id
     //   } catch(error) {
     //     console.log(error)
     //   }
     // },
-    saveTodo: async (parent, args, context) => {
+    updateTodo: async (parent, args, context) => {
       if (!context.viewer) return;
-
-      console.log("here");
+      const { id, task, completed } = args
+      // console.log("args", args);
       try {
-        // Generate a new id 
-        // knex query to save new todo to database with the audition_id
-      } catch (error) {
+            // Take todo id
+            const updatedTodo = await knex('todos')
+              .where({ id })
+              .update({
+                task,
+                completed
+               }).returning(['id', 'audition_id', 'task', 'completed']).then(r => r[0])
+                
+                console.log('updatetodo', updatedTodo) 
+             
+              return updatedTodo
+            
+          } catch (error) {
         console.log(error);
       }
     }
