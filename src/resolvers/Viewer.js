@@ -31,8 +31,18 @@ export const resolvers = {
                .from(knex.raw(`instructions, auditions`))
                .where('auditions.monitor_id', user.id)
                .andWhere('instructions.audition_id', upcoming_audition.id)
+            
+              const todos = await knex
+                .select("todos.*")
+                .distinct()
+                .from(knex.raw(`todos, auditions`))
+                .where("auditions.monitor_id", user.id)
+                .andWhere(
+                  "todos.audition_id",
+                  upcoming_audition.id
+                );
 
-             return { ...upcoming_audition, instructions: instructions };
-           }
+             return { ...upcoming_audition, instructions, todos };
+           },
          }
        };
