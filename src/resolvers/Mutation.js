@@ -1,6 +1,7 @@
 import knex from '../../knex/knex'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import uuidv4 from 'uuid/v4'
 
 export const resolvers = {
     Mutation: {
@@ -29,16 +30,24 @@ export const resolvers = {
         throw new Error(error);
       }
     },
-    // saveTodo: async (parent, {id}, context) => {
-    //   if (!context.viewer) return
+    saveTodo: async (parent, args, context) => {
+      if (!context.viewer) return
       
-    //   try {
-    //        Generate a new id
-    //        knex query to save new todo to database with the audition_id
-    //   } catch(error) {
-    //     console.log(error)
-    //   }
-    // },
+      try {
+        const { completed, task, audition_id } = args
+        const id = uuidv4()
+
+          const saveTodo = await knex('todos')
+          .returning(['id', 'audition_id', 'task', 'completed'])
+          .insert({ id, completed, task, audition_id })
+          //  Generate a new id
+          //  knex query to save new todo to database with the audition_id
+          console.log('saveTodo', saveTodo)
+          return saveTodo
+      } catch(error) {
+        console.log(error)
+      }
+    },
     updateTodo: async (parent, args, context) => {
       if (!context.viewer) return;
       const { id, task, completed } = args
@@ -52,8 +61,9 @@ export const resolvers = {
                 completed
                }).returning(['id', 'audition_id', 'task', 'completed']).then(r => r[0])
                 
-                console.log('updatetodo', updatedTodo) 
-             
+                // console.log('updatetodo', updatedTodo) 
+             // Add "created_at" to todo, sort by created_at
+             // 
               return updatedTodo
             
           } catch (error) {

@@ -40,7 +40,7 @@ export const resolvers = {
                 .andWhere(
                   "todos.audition_id",
                   upcoming_audition.id
-                );
+                ).orderBy('created_at');
 
              return { ...upcoming_audition, instructions, todos };
            },

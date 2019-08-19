@@ -5,6 +5,7 @@ exports.up = function(knex) {
         t.uuid("id").primary();
         t.string("instruction");
         t.uuid("audition_id");
+        
       });
     }
   });
