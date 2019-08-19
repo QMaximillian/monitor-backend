@@ -28,6 +28,27 @@ export const resolvers = {
       } catch (error) {
         throw new Error(error);
       }
+    },
+    // updateTodo: async (parent, {id}, context) => {
+    //   if (!context.viewer) return
+      
+    //   try {
+    //     // Take todo id
+    //     // knex query to save new text and completed properties
+    //   } catch(error) {
+    //     console.log(error)
+    //   }
+    // },
+    saveTodo: async (parent, args, context) => {
+      if (!context.viewer) return;
+
+      console.log("here");
+      try {
+        // Generate a new id 
+        // knex query to save new todo to database with the audition_id
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
 }
