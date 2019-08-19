@@ -50,13 +50,13 @@ const server = new ApolloServer({
   context:  async ({ req }) => {
       let authToken = null;
       let viewer = null;
-      // console.log('authorization', req.headers.authorization)
+      
       authToken = req.headers.authorization;
-      // console.log('authToken', authToken)
+      
       if (authToken) {
         viewer = await getViewer(authToken);
       }
-      // console.log('viewer', viewer)
+      
       return {
         viewer
       }; 

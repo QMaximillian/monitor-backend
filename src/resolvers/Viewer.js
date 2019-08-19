@@ -31,7 +31,7 @@ export const resolvers = {
                .from(knex.raw(`instructions, auditions`))
                .where('auditions.monitor_id', user.id)
                .andWhere('instructions.audition_id', upcoming_audition.id)
-            console.log(instructions)
+
              return { ...upcoming_audition, instructions: instructions };
            }
          }
