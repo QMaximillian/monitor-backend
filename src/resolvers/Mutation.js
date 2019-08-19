@@ -39,10 +39,8 @@ export const resolvers = {
 
           const saveTodo = await knex('todos')
           .returning(['id', 'audition_id', 'task', 'completed'])
-          .insert({ id, completed, task, audition_id })
-          //  Generate a new id
-          //  knex query to save new todo to database with the audition_id
-          console.log('saveTodo', saveTodo)
+          .insert({ id, completed, task, audition_id }).then(r => r[0])
+
           return saveTodo
       } catch(error) {
         console.log(error)
