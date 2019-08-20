@@ -48,10 +48,10 @@ export const resolvers = {
     },
     updateTodo: async (parent, args, context) => {
       if (!context.viewer) return;
-      const { id, task, completed } = args
-      // console.log("args", args);
+
       try {
-            // Take todo id
+          const { id, task, completed } = args;
+          
             const updatedTodo = await knex('todos')
               .where({ id })
               .update({
@@ -59,12 +59,9 @@ export const resolvers = {
                 completed
                }).returning(['id', 'audition_id', 'task', 'completed']).then(r => r[0])
                 
-                // console.log('updatetodo', updatedTodo) 
-             // Add "created_at" to todo, sort by created_at
-             // 
               return updatedTodo
             
-          } catch (error) {
+      } catch (error) {
         console.log(error);
       }
     }

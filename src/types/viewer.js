@@ -17,5 +17,6 @@ export const typeDef = gql`
            token: String!
            monitor_auditions: [Audition]!
            upcoming_audition: Audition!
+           roles: [Role]!
          }
        `;
