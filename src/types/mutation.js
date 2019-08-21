@@ -5,4 +5,5 @@ type Mutation {
     login(email: String, password: String!): Viewer!
     updateTodo(id: String!, task: String!, completed: Boolean!, audition_id: String!): Todo!
     saveTodo(task: String!, completed: Boolean!, audition_id: String!): Todo!
+    addMessage(content: String!): Message!
   }`

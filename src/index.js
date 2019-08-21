@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import cors from 'cors'
-import { ApolloServer, gql } from 'apollo-server-express'
-import express from "express";
+// import cors from 'cors'
+import { ApolloServer, PubSub } from 'apollo-server'
+// import express from "express";
 import { getViewer } from './lib'
 import merge from 'lodash.merge'
 import {typeDef as Viewer} from './types/viewer'
@@ -20,17 +20,20 @@ import {typeDef as Amenities} from './types/amenities'
 import {typeDef as Instruction} from './types/instructions'
 import {typeDef as Todo} from './types/todo'
 import {typeDef as Role} from './types/role'
+import {typeDef as Subscription} from './types/subscription'
+import {typeDef as Message} from './types/message'
 
 /////
 import {resolvers as auditionResolvers} from './resolvers/Audition'
 import {resolvers as viewerResolvers} from './resolvers/Viewer'
 import {resolvers as queryResolvers} from './resolvers/Query'
 import {resolvers as mutationResolvers} from './resolvers/Mutation'
+import {resolvers as subscriptionResolvers} from './resolvers/Subscription'
 
 
 
-const app = express();
-app.use(cors('*'))
+// const app = express();
+// app.use(cors('*'))
 
 
 
@@ -40,16 +43,23 @@ const resolvers = merge(
     auditionResolvers,
     viewerResolvers,
     queryResolvers,
-    mutationResolvers
+    mutationResolvers,
+    subscriptionResolvers
 ); 
 
-const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities, Instruction, Todo, Role];
+const typeDefs = [Viewer, User, Audition, Appointment, Theater, Mutation, Query, Season, Monologue, Song, FAQ, Info, Amenities, Instruction, Todo, Role, Subscription, Message];
 
+const pubsub = new PubSub()
 
 const server = new ApolloServer({
   typeDefs: typeDefs,
   resolvers,
   context:  async ({ req }) => {
+
+    if (pubsub) {
+      // console.log(pubsub)
+      return { pubsub }
+    }
       let authToken = null;
       let viewer = null;
       
@@ -66,8 +76,8 @@ const server = new ApolloServer({
     
 });  
 
-server.applyMiddleware({ app });
+// server.applyMiddleware({ app });
 
-app.listen({ port: 8000 }, () => {
+server.listen({ port: 8000 }, () => {
   console.log('Apollo Server on http://localhost:8000/graphql');
 });

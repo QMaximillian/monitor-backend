@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uuidv4 from 'uuid/v4'
 
+const NEW_MESSAGE = "NEW_MESSAGE";
+
 export const resolvers = {
     Mutation: {
     login: async (parent, { email, password }, context) => {
@@ -65,6 +67,15 @@ export const resolvers = {
       } catch (error) {
         console.log(error);
       }
+    },
+    addMessage: (parent, {content}, {pubsub}) => {
+      const id = uuidv4()
+
+      pubsub.publish(NEW_MESSAGE, {
+        newMessage: {id, content}
+      })
+      return { id, content }
+
     }
   },
 }
