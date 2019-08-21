@@ -47,7 +47,6 @@ export const resolvers = {
            roles: async (user, args, context) => {
              const roles = await knex.select('*').from('roles').where("user_id", user.id)
 
-             console.log(roles)
              return roles
 
            }
