@@ -14,7 +14,7 @@ export const resolvers = {
         if (!viewer) {
           throw new Error("No viewer found");
         }
-
+        
         const valid = await bcrypt.compare(password, viewer.password);
 
         if (!valid) {
@@ -22,7 +22,8 @@ export const resolvers = {
         }
 
         const token = jwt.sign({ id: viewer.id }, "frindle");
-
+        let roles = await knex('roles').where("user_id", viewer.id)
+        viewer.roles = roles
         viewer.token = token;
 
         return viewer;
