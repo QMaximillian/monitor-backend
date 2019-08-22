@@ -2,6 +2,7 @@ import knex from '../../knex/knex'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import uuidv4 from 'uuid/v4'
+import { pubsub } from "../index";
 
 export const resolvers = {
     Mutation: {
@@ -65,6 +66,16 @@ export const resolvers = {
       } catch (error) {
         console.log(error);
       }
+    },
+    createMessage: async (_, {text}) => {
+      const id = uuidv4()
+      // console.log(id)
+      const message = await knex('messages')
+        .returning(['id', 'text'])
+        .insert({id, text}).then(r => r[0])
+
+        await pubsub.publish('MESSAGE_CREATED', { messageCreated: message})
+        return message
     }
   },
 }
