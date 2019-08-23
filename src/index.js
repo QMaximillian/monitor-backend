@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import express from "express";
 import cors from 'cors'
-import { ApolloServer, graphqlExpress, graphiqlExpress } from 'apollo-server-express'
-import bodyParser from "body-parser";
+import { ApolloServer } from 'apollo-server-express'
+
 import { PostgresPubSub } from "graphql-postgres-subscriptions"
 import { execute, subscribe } from "graphql";
 import http from 'http';

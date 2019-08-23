@@ -69,7 +69,7 @@ export const resolvers = {
     },
     createMessage: async (_, {text}) => {
       const id = uuidv4()
-      // console.log(id)
+      console.log(text)
       const message = await knex('messages')
         .returning(['id', 'text'])
         .insert({id, text}).then(r => r[0])
