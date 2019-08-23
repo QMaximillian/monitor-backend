@@ -26,6 +26,16 @@ export const resolvers = {
       } catch(error) {
         throw new Error
       }
+    },
+    getAllMessages: async (parent, { audition_id }, context) =>{
+      if (!context.viewer) return
+
+      try {
+        const messages = await knex.select("*").from("messages").where('audition_id', audition_id)
+        return messages
+      } catch(error) {
+        console.log(error)
+      }
     }
   },
 }

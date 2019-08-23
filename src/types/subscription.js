@@ -8,5 +8,6 @@ export const typeDef = gql`
     type Message {
         id: String!
         text: String!
+        audition_id: String
     }
 `

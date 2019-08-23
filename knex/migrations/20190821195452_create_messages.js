@@ -4,6 +4,7 @@ exports.up = function(knex) {
       return knex.schema.createTable("messages", t => {
         t.uuid("id").primary();
         t.string("text");
+        t.string("audition_id")
         t.timestamp("created_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
       });
