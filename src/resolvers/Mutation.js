@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import uuidv4 from 'uuid/v4'
 import { pubsub } from "../index";
 
+const MESSAGE_CREATED = "MESSAGE_CREATED";
 export const resolvers = {
     Mutation: {
     login: async (parent, { email, password }, context) => {
@@ -73,7 +74,7 @@ export const resolvers = {
         .returning(['id', 'text'])
         .insert({id, text, audition_id}).then(r => r[0])
       console.log('message', message)
-        await pubsub.publish('MESSAGE_CREATED', { messageCreated: message})
+        await pubsub.publish(MESSAGE_CREATED, { messageCreated: message })
         return message
     }
   },
