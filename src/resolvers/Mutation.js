@@ -68,11 +68,15 @@ export const resolvers = {
         console.log(error);
       }
     },
-    createMessage: async (_, {text, audition_id, user_id}) => {
+    createMessage: async (_, {text, audition_id, user_id, first_name, last_name}) => {
+      console.log('first_name', first_name)
+      console.log('last_name', last_name)
       const id = uuidv4()
       const message = await knex('messages')
-        .returning(['id', 'text', 'audition_id', 'user_id'])
-        .insert({id, text, audition_id, user_id}).then(r => r[0])
+        .returning(['id', 'text', 'audition_id', 'user_id', 'first_name', 'last_name'])
+        .insert({id, text, audition_id, user_id, first_name, last_name}).then(r => r[0])
+
+        // const message2 = await knex('messages').
       console.log('message', message)
         await pubsub.publish(MESSAGE_CREATED, { messageCreated: message })
         return message
