@@ -5,6 +5,7 @@ exports.up = function(knex) {
         t.uuid("id").primary();
         t.string("text");
         t.string("audition_id")
+        t.string("user_id")
         t.timestamp("created_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
       });

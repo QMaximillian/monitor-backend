@@ -9,5 +9,6 @@ export const typeDef = gql`
         id: String!
         text: String!
         audition_id: String
+        user_id: String
     }
 `
