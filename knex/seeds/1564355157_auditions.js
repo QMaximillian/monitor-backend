@@ -21,7 +21,7 @@ exports.seed = function(knex) {
         },
         {
           id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
-          date: "2019-07-29",
+          date: "2019-08-28",
           show_name: "Mary Poppins",
           begin_time: "2019-07-29T08:00:00+0000",
           end_time: "2019-07-29T16:00:00+0000",
