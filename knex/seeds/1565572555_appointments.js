@@ -139,97 +139,97 @@ exports.seed = function(knex) {
       return knex("appointments").insert([
         {
           id: "dd10008a-40c0-4be7-b71b-b507180d60bf",
-          time: "2019-08-28T16:00:00Z",
+          time: "2019-08-29T16:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "0e2097e8-663d-4db1-9e93-bc12f33dbcd6"
         },
         {
           id: "08ac0418-3844-458e-b7e3-03af2f7b9030",
-          time: "2019-08-28T16:30:00Z",
+          time: "2019-08-29T16:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "0e64ecfb-3fc2-4afd-8ac9-caea94f06625"
         },
         {
           id: "3a70e980-a68d-4c67-bfb4-ce0f1e63580a",
-          time: "2019-08-28T17:00:00Z",
+          time: "2019-08-29T17:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "1ec32c99-37c5-4b1f-8fde-b6b7cb6ca2cf"
         },
         {
           id: "e7e2eba7-9b00-4ea3-8ca4-8d5cf1c26ed5",
-          time: "2019-08-28T17:30:00Z",
+          time: "2019-08-29T17:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "21aa361f-af3b-4a1e-8f02-81ad1f89d073"
         },
         {
           id: "0010e411-44d4-4c65-8d82-54673fb74a60",
-          time: "2019-08-28T18:00:00Z",
+          time: "2019-08-29T18:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "2c809b29-7f8f-4669-a80e-2bbc80820757"
         },
         {
           id: "9dfbef4d-53ef-4626-933b-c6205f581b71",
-          time: "2019-08-28T18:30:00Z",
+          time: "2019-08-29T18:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "36546426-29e5-41f9-8bd1-73a057051f3f"
         },
         {
           id: "92158b0e-1143-4787-9bd7-cb2ddff780b7",
-          time: "2019-08-28T19:00:00Z",
+          time: "2019-08-29T19:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "485a6117-8ab3-4be8-85da-2e7ed5a26b1d"
         },
         {
           id: "a1330816-6b54-4976-8089-a7bcf8c10290",
-          time: "2019-08-28T19:30:00Z",
+          time: "2019-08-29T19:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "4d56907c-9cff-4056-8636-d40dff382f4b"
         },
         {
           id: "adaac257-06e1-4481-8876-d563b27847d5",
-          time: "2019-08-28T20:00:00Z",
+          time: "2019-08-29T20:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "53ddf522-f32d-49f2-80e0-def86d6b25a2"
         },
         {
           id: "81040643-0bc9-46f5-9562-afb6af54828e",
-          time: "2019-08-28T21:30:00Z",
+          time: "2019-08-29T20:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "5eb78847-364d-4af3-8f18-fba63b9bdddf"
         },
         {
           id: "8f3bb8b9-9498-48aa-a183-b298e05b739a",
-          time: "2019-08-28T22:00:00Z",
+          time: "2019-08-29T21:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "64eaefd5-b0d1-44e7-8abb-d6e194f21df0"
         },
         {
           id: "f380ddd3-9973-4e65-9a38-a6167452a946",
-          time: "2019-08-28T22:30:00Z",
+          time: "2019-08-29T21:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "6777d736-9366-466a-9cdf-2824e6145b64"
         },
         {
           id: "4791d4f9-8b4e-4721-9379-2f110a43d5f4",
-          time: "2019-08-28T23:00:00Z",
+          time: "2019-08-29T22:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "6890f989-81d0-4dfd-9445-65069d1964a6"
         },
         {
           id: "bc15e15e-2991-43a3-bd8a-7c4fc54b0243",
-          time: "2019-08-28T23:30:00Z",
+          time: "2019-08-29T22:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "68b42c26-ffd0-4f6a-96c1-5a7bc5a5e599"
         },
         {
           id: "1f9c6d63-0fc6-4209-9157-fbaed26a951e",
-          time: "2019-08-28T24:00:00Z",
+          time: "2019-08-29T23:00:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "6dd88f58-50bd-4cf2-8bdd-24362c7defde"
         },
         {
           id: "f88bec9f-defe-49d4-84f7-5b5266500b92",
-          time: "2019-08-28T24:30:00Z",
+          time: "2019-08-29T23:30:00Z",
           audition_id: "f4d06d8d-f943-4346-936a-441adbb1a8b1",
           user_id: "75235e84-2312-40d9-95f3-60d3fb8f352b"
         }

@@ -16,6 +16,5 @@ export const typeDef = gql`
            appointments: [Appointment!]!
            instructions: [Instruction]!
            todos: [Todo]!
-           upcoming_appointment: Appointment
          }
        `;

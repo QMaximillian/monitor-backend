@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 export const typeDef = gql`
     type Subscription {
         messageCreated: Message!
+        upcoming_appointment: Appointment
     }
 
     type Message {
@@ -13,4 +14,4 @@ export const typeDef = gql`
         first_name: String!
         last_name: String!
     }
-`
+`;

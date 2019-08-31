@@ -69,8 +69,7 @@ export const resolvers = {
       }
     },
     createMessage: async (_, {text, audition_id, user_id, first_name, last_name}) => {
-      console.log('first_name', first_name)
-      console.log('last_name', last_name)
+
       const id = uuidv4()
       const message = await knex('messages')
         .returning(['id', 'text', 'audition_id', 'user_id', 'first_name', 'last_name'])
