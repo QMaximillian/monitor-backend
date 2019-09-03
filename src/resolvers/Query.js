@@ -25,7 +25,7 @@ export const resolvers = {
         const audition = await knex('auditions')
         .where("auditions.id", args.audition_id)
         .then(row => row[0])
-
+        
         return audition
       } catch(error) {
         throw new Error
@@ -56,6 +56,7 @@ export const resolvers = {
                  .orderBy('appointments.time')
                  .limit(1).then(r => r[0])
 
+                 if (upcoming_appointment) {
                 const {
                   id,
                   time,
@@ -67,7 +68,9 @@ export const resolvers = {
                 } = upcoming_appointment; 
                 
                 return { id, time , user: { id: user_id, first_name, last_name, email, phone_number }}
-
+              } else {
+                return null
+              }
              } catch(error) {
                console.log(error)
              }

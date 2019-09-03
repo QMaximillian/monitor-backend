@@ -10,7 +10,7 @@ export const typeDef = gql`
         phone_number: String!
         age: Int!
         equity: Boolean!
-        gender: String
+        gender: String!
         feet: Int!
         inches: Int!
         birthday: String!

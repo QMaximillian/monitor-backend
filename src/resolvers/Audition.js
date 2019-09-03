@@ -27,7 +27,10 @@ export const resolvers = {
                      age: appointment.age,
                      equity: appointment.equity,
                      gender: appointment.gender,
-                     email: appointment.email
+                     email: appointment.email,
+                     feet: appointment.feet,
+                     inches: appointment.inches,
+                     birthday: appointment.birthday
                    }
                  });
                });
