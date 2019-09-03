@@ -14,5 +14,6 @@ export const typeDef = gql`
         feet: Int!
         inches: Int!
         birthday: String!
+        profile_uri: String!
     }
 `

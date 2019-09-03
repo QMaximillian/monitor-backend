@@ -30,7 +30,8 @@ export const resolvers = {
                      email: appointment.email,
                      feet: appointment.feet,
                      inches: appointment.inches,
-                     birthday: appointment.birthday
+                     birthday: appointment.birthday,
+                     profile_uri: appointment.profile_uri
                    }
                  });
                });
