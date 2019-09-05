@@ -8,18 +8,20 @@ export const resolvers = {
                const appointments = await knex
                  .select(
                    "appointments.id",
-                   "appointments.time",
+                   "appointments.start_time",
+                   "appointments.end_time",
                    "users.*"
                  )
                  .from("appointments")
                  .leftJoin("users", "users.id", "appointments.user_id")
                  .andWhere("appointments.audition_id", "=", audition.id)
-                 .orderBy("appointments.time");
+                 .orderBy("appointments.start_time");
                let structuredAppointments = [];
                appointments.forEach(appointment => {
                  structuredAppointments.push({
                    id: appointment.id,
-                   time: appointment.time,
+                   start_time: appointment.start_time,
+                   end_time: appointment.end_time,
                    user: {
                      first_name: appointment.first_name,
                      last_name: appointment.last_name,
