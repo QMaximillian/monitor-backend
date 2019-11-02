@@ -27,7 +27,7 @@
     "graphql-postgres-subscriptions": "^1.0.5",
     "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.18.3",
+    "knex": "^0.19.5",
     "lodash.merge": "^4.6.2",
     "pg": "^7.11.0",
     "subscriptions-transport-ws": "^0.9.16",
