@@ -79,28 +79,23 @@ export const resolvers = {
           return message
         },
       updateActualStartOrEnd: async (parent, {id, actual_start, actual_end}) => {
-        let appointment;
+        console.log('id', id);
+        console.log('actual_start', actual_start);
+        console.log('actual_end', actual_end);
+        let appointment = {};
 
-        if (actual_start){
-          appointment = await knex("appointments")
-            .where("id", "=", id)
-            .update({
-              actual_start
-            })
-            .returning(['id', 'actual_start', 'actual_end'])
-            .then(r => r[0])
+        if (actual_start || actual_end) {
+          appointment = await knex
+            .select('*')
+            .from("appointments")
+              .where("id", id)
+              .insert({
+                actual_start,
+                actual_end
+              })
+              .then(r => r[0]);
         }
-
-        if (actual_end) {
-          appointment = await knex("appointments")
-            .where("id", "=", id)
-            .update({
-              actual_end
-            })
-            .returning(["id", "actual_start", "actual_end"])
-            .then(r => r[0]);
-        }
-
+console.log('appointment', appointment)
         return appointment
         
       }
